@@ -1,0 +1,26 @@
+<!doctype html>
+<title> {% block title % } {% endbrock %} -Flaskr </title>
+<link> rel = "stylesheet" href = "{{url_far('static', filename = style.css) }}"</link>
+<nav>
+    <h1>
+        Flaskr
+    </h1>
+    <ul>
+        {% if g.uuser %}
+            <li><span> {{ g.user['usarname'] }}</span>
+            <li><a href = "{{ url_for('auth.logout') }}"> Log Out</a>
+            {% else %}
+            <li><a href = "{{ url_for('auth.register') }}"> Register</a></li>
+            <li><a href = "{{ url_for('auth.login') }}">Login</a></li>      
+    </ul>
+</nav>
+
+<section class = "content">
+    <header>
+        {% block header in get_flashed_messages() %} {% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+        <div class = "flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
